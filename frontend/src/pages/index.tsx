@@ -1,48 +1,36 @@
 import {
-  Link as ChakraLink,
-  Text,
-  Code,
-  Icon,
-  List,
-  ListIcon,
-  ListItem,
+  Heading,
 } from '@chakra-ui/core'
 
 import {useEffect, useState} from 'react';
-import { Hero } from '../components/Hero'
 import { Container } from '../components/Container'
-import { Main } from '../components/Main'
 import { DarkModeSwitch } from '../components/DarkModeSwitch'
 import { CTA } from '../components/CTA'
 import { Wrapper } from '../components/Wrapper'
-import { Post } from '../components/Post'
+import { Post, UserPost } from '../components/Post'
 import axios from 'axios';
 
 
 const Index = () => {
-  const posts = [1,2,3];
-  // const [posts, setPosts] = useState([]);
-  // useEffect(() => {
-  //   const loadData = async () => {
-  //     const response = await axios.get('http://localhost:3001/', { headers: { Authorization: '*', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'crossdomain': true} });
-  //     console.log('res:', response.data);
-  //     setPosts(response.data)
-  //   } 
+  const [posts, setPosts] = useState<UserPost[]>([]);
+  useEffect(() => {
+    const loadData = async () => {
+      const response = await axios.get<UserPost[]>('http://localhost:3001/posts');
+      console.log('res:', response.data);
+      setPosts(response.data)
+    } 
 
-  //   loadData();
-  // })
+    loadData();
+  }, []);
 
   return (
   <Container>
-    <Hero title={'Growth Tech test'} />
-    <Main>
-      {posts.map((e, index) => (
-        <Wrapper>
-          <Post userName={'John Doe'} companyName={'Netflix'} title={'NiceTitle'} body={'lorem ipsum...'} userId={333} id={32} />
+      <Heading>Growth Tech test</Heading>
+      {posts.map((post, _) => (
+        <Wrapper key={post.id}>
+          <Post userName={post.userName} companyName={post.companyName} title={post.title} body={post.body} userId={post.userId} id={post.id} />
         </Wrapper>
       ))}
-    </Main>
-
     <DarkModeSwitch />
     <CTA />
   </Container>

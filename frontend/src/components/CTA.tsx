@@ -11,9 +11,9 @@ export const CTA = () => (
     maxWidth="48rem"
     py={2}
   >
-    <ChakraLink isExternal href="https://chakra-ui.com" flexGrow={1} mx={2}>
+    <ChakraLink isExternal href="https://github.com/zetos/growth-tech-test" flexGrow={1} mx={2}>
       <Button width="100%" variant="outline" variantColor="green">
-        View on github repo
+        View on github.
       </Button>
     </ChakraLink>
 

@@ -1,4 +1,4 @@
-import { Stack, Avatar, Heading, Text } from "@chakra-ui/core";
+import { Stack, Avatar, Heading, Text, Box } from "@chakra-ui/core";
 
 export interface Post {
     userId: number;
@@ -12,18 +12,25 @@ export interface UserPost extends Post {
     userName: string;
 }
 
-export const Post: React.FC<UserPost> = ({userName, companyName, title, body}) => (
-    <Stack isInline>
-        <Avatar name={userName} />
-        <Stack spacing={3}>
-            <Heading as="h4" size="md">
-                Title: {title} by {userName} from {companyName}
-            </Heading>
-            <Text fontSize="25px">
-                Post: {body}
-            </Text>
+export const Post: React.FC<UserPost> = ({ userName, companyName, title, body }) => (
+    <Box p={5} shadow="md" borderWidth="1px">
+        <Stack isInline>
+            <Avatar name={userName} />
+            <Stack spacing={1}>
+                <Heading as="h4" size="md">
+                    Title: {title}
+                </Heading>
+                <Text fontSize="md">
+                    by: {userName}
+                </Text>
+                <Text fontSize="md">
+                    from: {companyName}
+                </Text>
+                <Text fontSize="25px">
+                    {body}
+                </Text>
+            </Stack>
         </Stack>
-    </Stack>
-    )
-    
-    
+    </Box>
+)
+
