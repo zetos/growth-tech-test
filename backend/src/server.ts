@@ -7,13 +7,17 @@ import { enhancedPost } from './util';
 
 const app = express();
 
-app.get('/', async (_, res) => {
+app.get('/posts', async (_, res) => {
   const postsRes = await getPosts();
   const usersRes = await getUsers();
 
   const resData = enhancedPost(postsRes.data, usersRes.data);
 
   res.send(JSON.stringify(resData));
+});
+
+app.get('/', async (_, res) => {
+  res.send(JSON.stringify({ hell: true }));
 });
 
 export const Server = {
@@ -23,11 +27,8 @@ export const Server = {
         logger,
       })
     );
-    app.use(
-      cors({
-        origin: '*',
-      })
-    );
+    app.use(express.json());
+    app.use(cors());
     app.listen(port, () => {
       logger.info(`Server listening on port: ${port}`);
     });
