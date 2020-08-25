@@ -21,7 +21,7 @@ process.on('uncaughtException', (error) => {
 
 (async (): Promise<void> => {
   try {
-    Server.start(3000);
+    Server.start();
     const exitSignals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
     // fix me
     exitSignals.map((sig) =>

@@ -17,7 +17,7 @@ app.get('/', async (_, res) => {
 });
 
 export const Server = {
-  start: (port = 3000): void => {
+  start: (port = 3001): void => {
     app.use(
       expressPino({
         logger,
