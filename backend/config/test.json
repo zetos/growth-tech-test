@@ -1,0 +1,12 @@
+{
+  "App": {
+    "resources": {
+      "JsonPlaceHolder": {
+        "apiToken": "foobar"
+      }
+    },
+    "logger": {
+      "enabled": false
+    }
+  }
+}

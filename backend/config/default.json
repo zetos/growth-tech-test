@@ -1,0 +1,14 @@
+{
+    "App": {
+      "resources": {
+        "JsonPlaceHolder": {
+          "apiUrl": "http://jsonplaceholder.typicode.com",
+          "apiToken": "foobar"
+        }
+      },
+      "logger": {
+        "enabled": true,
+        "level": "info"
+      }
+    }
+  }
