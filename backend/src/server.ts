@@ -20,7 +20,7 @@ export const createServer = (): Application => {
     const usersRes = await getUsers();
     const resData = enhancedPost(postsRes.data, usersRes.data);
 
-    res.send(JSON.stringify(resData));
+    res.send(resData);
   });
 
   app.get('/', async (_, res) => {
