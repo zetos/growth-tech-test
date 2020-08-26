@@ -12,48 +12,38 @@ const hasSubStr = R.curry(
 
 const hasGroup = hasSubStr(R.__, 'Group');
 
-const filterByGroup = (user: User) => {
-  return hasGroup(user.company.name);
-};
+const filterByGroup = (user: User) => hasGroup(user.company.name);
 
-const filteredUsers = (users: User[]): User[] => {
-  //   return R.filter(filterByGroup, users);
-  return users.filter(filterByGroup);
-};
+const filteredUsers = (users: User[]): User[] => users.filter(filterByGroup);
 
-// const postIncludesUserId = R.curry((users: User[], post: Post) => {
-//   const userIds = users.map((user) => user.id);
-//   return userIds.includes(post.userId);
-// });
-
-// const filteredPostsByUsers = (posts: Post[], users: User[]) => {
-//   const fromUsers = postIncludesUserId(users);
-//   return R.filter(fromUsers, posts);
-// };
-
-const addUserInfo = (user: User, post: Post): UserPost => {
-  return { ...post, companyName: user.company.name, userName: user.name };
-};
+const addUserInfo = (user: User, post: Post): UserPost => ({
+  ...post,
+  companyName: user.company.name,
+  userName: user.name,
+});
 
 const appendUserToPost = R.curry(
-  (users: User[], acc: UserPost[], post: Post): UserPost[] => {
-    const userIds = users.map((user) => user.id);
-    const indexOfUser = userIds.indexOf(post.userId);
-    if (~indexOfUser) {
-      const user = users[indexOfUser];
-      return [...acc, addUserInfo(user, post)];
-    } else {
-      return acc;
-    }
+  (
+    usersData: { users: User[]; usersIds: number[] },
+    acc: UserPost[],
+    post: Post
+  ): UserPost[] => {
+    const indexOfUser = usersData.usersIds.indexOf(post.userId); // imperative survivor..
+    return ~indexOfUser
+      ? [...acc, addUserInfo(usersData.users[indexOfUser], post)]
+      : acc;
   }
 );
 
-const appendUserInfo = (posts: Post[], users: User[]) => {
-  const postReducerWithUsers = appendUserToPost(users);
+const getUsersIds = (users: User[]) => R.map((user) => user.id, users);
+
+const appendUserInfo = (posts: Post[], users: User[]): UserPost[] => {
+  const postReducerWithUsers = appendUserToPost({
+    users,
+    usersIds: getUsersIds(users),
+  });
   return R.reduce(postReducerWithUsers, [], posts);
 };
 
-export const enhancedPost = (posts: Post[], users: User[]): UserPost[] => {
-  //   const getPosts = filteredPostsByUsers(posts, users);
-  return appendUserInfo(posts, filteredUsers(users));
-};
+export const enhancedPost = (posts: Post[], users: User[]): UserPost[] =>
+  appendUserInfo(posts, filteredUsers(users));
