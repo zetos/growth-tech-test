@@ -28,7 +28,7 @@ jobs:
 
     - name: Install dependencies
     - run: |
-        cd WebApplication1Core
+        cd backend
         npm i
 
     - name: Run all tests
