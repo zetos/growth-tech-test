@@ -7,7 +7,9 @@
     "build": "tsc",
     "prod": "npm run build && node dist/src/index.js",
     "start": "ts-node-dev src/index.ts | pino-pretty -c",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:unit": "jest",
+    "test:e2e": "jest --projects ./test --runInBand",
+    "test": "npm run test:unit && npm run test:e2e"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +36,7 @@
     "pino-pretty": "^4.1.0",
     "prettier": "^2.0.5",
     "supertest": "^4.0.2",
+    "ts-jest": "^26.2.0",
     "ts-node": "^8.10.2",
     "ts-node-dev": "^1.0.0-pre.56",
     "typescript": "^3.9.7"

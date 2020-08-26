@@ -1,12 +1,13 @@
 import supertest from 'supertest';
 
-import { Server } from '../src/server';
+import { Server, createServer } from '../src/server';
 
 // let server: SetupServer;
 
-beforeAll(async () => {
-  Server.start(3000);
-  global.testRequest = supertest(Server.getApp());
+beforeAll(() => {
+  const app = createServer();
+  global.testRequest = supertest(app);
+  // global.testRequest = supertest(Server.getApp());
 });
 
 // afterAll(async() => await server.close());
