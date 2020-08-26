@@ -57,5 +57,3 @@ export const enhancedPost = (posts: Post[], users: User[]): UserPost[] => {
   //   const getPosts = filteredPostsByUsers(posts, users);
   return appendUserInfo(posts, filteredUsers(users));
 };
-
-// enhancedPost(postsJson, filteredUsers(usersJson))
